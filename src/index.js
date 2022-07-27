@@ -1,5 +1,6 @@
 import './style.css';
-import { processWeather } from './api';
+import { processCurrentWeather, processHourlyWeather } from './api';
 
 
-processWeather('London');
+processCurrentWeather('London');
+processHourlyWeather('London');
