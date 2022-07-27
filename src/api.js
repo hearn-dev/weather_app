@@ -33,17 +33,17 @@ export async function processCurrentWeather(city) {
   currentWeather.humidity = forecastData.current.humidity;
   currentWeather.windspeed = forecastData.current.wind_speed;
   
+  console.log(currentWeather)
   return currentWeather;
 }
 
 export async function processHourlyWeather(city) {
   const forecastData = await getData(city)
-  console.log(forecastData)
 
-  // Create object for hourly forecast
+  // Create array for hourly forecast
   let hours = [];
 
-  for (let i = 0; i < 12; i++) {
+  for (let i = 0; i < 24; i++) {
     // Get forecast hour from Date object
     const time = new Date((forecastData.hourly[i].dt) * 1000)
 
@@ -59,12 +59,31 @@ export async function processHourlyWeather(city) {
 
   }
   console.log(hours);
+  return hours;
 
 }
 
 export async function processWeekWeather(city) {
   const forecastData = await getData(city)
 
-  // Create object for week
+  // Create array for week
+  let week = []
 
+  for (let i = 1; i < 8; i++) {
+    // Create array of day names, for later assignment
+    const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const time = new Date((forecastData.daily[i].dt) * 1000)
+
+    // Create day object, assign properties
+    const day = {
+      weekday: days[time.getDay()],
+      weather: forecastData.daily[i].weather[0].description,
+      tempMax: forecastData.daily[i].temp.max,
+      tempMin: forecastData.daily[i].temp.min,
+
+    }
+
+    week[i-1] = day;
+  }
+  console.log(week);
 }
