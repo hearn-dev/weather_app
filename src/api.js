@@ -16,6 +16,12 @@ async function getData(city) {
   return weatherData;
 }
 
+function fahrenheitToCelsius(tempFahrenheit) {
+  const cel = (tempFahrenheit - 32) * (5 / 9);
+  console.log(cel);
+  return cel.toFixed(2);
+}
+
 export async function processCurrentWeather(city) {
   const forecastData = await getData(city);
 
@@ -26,7 +32,8 @@ export async function processCurrentWeather(city) {
 
   // Assign properties from JSON response
   currentWeather.currentCondition = forecastData.current.weather[0].description;
-  currentWeather.currentTemp = forecastData.current.temp;
+  currentWeather.currentTempF = forecastData.current.temp;
+  currentWeather.currentTempC = Number(fahrenheitToCelsius(forecastData.current.temp));
   currentWeather.feelsLike = forecastData.current.feels_like;
   currentWeather.currentHigh = forecastData.daily[0].temp.max;
   currentWeather.currentLow = forecastData.daily[0].temp.min;
