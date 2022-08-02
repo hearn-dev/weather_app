@@ -14,4 +14,5 @@ locationForm.addEventListener('submit', (e) => {
   processWeekWeather(locationInput.value);
   // Retrieve Hourly forecast
   processHourlyWeather(locationInput.value);
+  locationInput.value = null;
 })

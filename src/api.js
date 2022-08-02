@@ -13,13 +13,22 @@ async function getData(city) {
   // Fetch weather data from API
   const response = await fetch('https://api.openweathermap.org/data/3.0/onecall?lat=' + latLon[0] + '&lon=' + latLon[1] + '&exclude=minutely&units=imperial&appid=194689880e60e9ffc603d9a1de4909e2', {mode: 'cors'})
   const weatherData = await response.json();
+  console.log(weatherData);
   return weatherData;
+}
+function title(input) {
+  let words = input.split(' ');
+
+  for (let i = 0; i < words.length; i++) {
+    words[i] = words[i][0].toUpperCase() + words[i].substr(1);
+
+  }
+  return words.join(' ');
 }
 
 function fahrenheitToCelsius(tempFahrenheit) {
   const cel = (tempFahrenheit - 32) * (5 / 9);
-  console.log(cel);
-  return cel.toFixed(2);
+  return Number(cel.toFixed(2));
 }
 
 export async function processCurrentWeather(city) {
@@ -27,13 +36,13 @@ export async function processCurrentWeather(city) {
 
   // Create weather object for current weather
   let currentWeather = {
-    city,
+    city: title(city),
   }
 
   // Assign properties from JSON response
   currentWeather.currentCondition = forecastData.current.weather[0].description;
   currentWeather.currentTempF = forecastData.current.temp;
-  currentWeather.currentTempC = Number(fahrenheitToCelsius(forecastData.current.temp));
+  currentWeather.currentTempC = fahrenheitToCelsius(forecastData.current.temp);
   currentWeather.feelsLike = forecastData.current.feels_like;
   currentWeather.currentHigh = forecastData.daily[0].temp.max;
   currentWeather.currentLow = forecastData.daily[0].temp.min;
@@ -57,7 +66,8 @@ export async function processHourlyWeather(city) {
     // Create hour object in hours array, assign weather properties
     const hour = {
     time: `${time.getHours()}:00`,
-    temp: forecastData.hourly[i].temp,
+    tempF: forecastData.hourly[i].temp,
+    tempC: fahrenheitToCelsius(forecastData.hourly[i].temp),
     weather: forecastData.hourly[i].weather[0].description,
     };
 
@@ -85,8 +95,10 @@ export async function processWeekWeather(city) {
     const day = {
       weekday: days[time.getDay()],
       weather: forecastData.daily[i].weather[0].description,
-      tempMax: forecastData.daily[i].temp.max,
-      tempMin: forecastData.daily[i].temp.min,
+      tempMaxF: forecastData.daily[i].temp.max,
+      tempMinF: forecastData.daily[i].temp.min,
+      tempMaxC: fahrenheitToCelsius(forecastData.daily[i].temp.max),
+      tempMinC: fahrenheitToCelsius(forecastData.daily[i].temp.min)
 
     }
 
