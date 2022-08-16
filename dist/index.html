@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Weather</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+  <script src="https://kit.fontawesome.com/412d7718b1.js" crossorigin="anonymous"></script>
 </head>
 <body>
   <div class="search">
@@ -13,6 +13,42 @@
       <i class="fas fa-search"></i>
       <input type="text" class="locationInput" placeholder="Search...">
     </form>
+    <div class="today container" data-today>
+      <h2 class="city" data-city>Knoxville</h2>
+      <div class="current-condition container">
+        <i id="current-icon" class="fa-solid fa-cloud"></i>
+        <h3 class="conditions" data-current-conditions>Cloudy</h3>
+      </div>
+      <div class="container current-info">
+        <div class="current-left">
+          <p class="temp" data-current-temp>75º F</p>
+          <div class="high container">
+            <h3 class="high title">High: </h3>
+            <p class="high" data-current-high>85º F</p>
+          </div>
+          <div class="low container">
+            <h3 class="low title">Low: </h3>
+            <p class="low" data-current-low>68º F</p>
+          </div>
+      </div>  
+      <div class="current-right">
+        <div class="feels-like container">
+          <h3 class="feels-like">Feels like: </h3>
+          <p class="feels-like" data-feels-like>80º F</p>
+        </div>
+        <div class="humidity container">
+          <h3>Humidity: </h3>
+          <p data-current-humidity>70%</p>
+        </div>
+        <div class="wind container">
+          <h3>Wind Speed: </h3>
+          <p>25 mph</p>
+      </div>
+
+      </div>
+      </div>
+    </div>
+
   </div>
   <script src="bundle.js"></script>
 </body>
